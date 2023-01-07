@@ -1,7 +1,7 @@
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Pressable } from 'react-native';
 
 
 export default function SelectRegion() {
@@ -26,6 +26,9 @@ export default function SelectRegion() {
           onChange={() => console.log("some log")}
           onChangeText={() => console.log("some log")}
         />
+        <Pressable style={styles.button} onPress={() => console.log("button pressed")}>
+          <Text style={styles.text}>See Customer In Region</Text>
+        </Pressable>
       </View>
     );
   }
@@ -43,6 +46,7 @@ export default function SelectRegion() {
       borderWidth: 0.5,
       borderRadius: 8,
       paddingHorizontal: 8,
+      marginBottom: 40
     },
     icon: {
       marginRight: 5,
@@ -69,5 +73,21 @@ export default function SelectRegion() {
     inputSearchStyle: {
       height: 40,
       fontSize: 16,
+    },
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: 'black',
+    },
+    text: {
+      fontSize: 16,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
     },
   });
