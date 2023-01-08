@@ -7,6 +7,7 @@ import * as React from 'react';
 import Home from './components/Home.js';
 import SelectRegion from './components/SelectRegion';
 import CustomerByRegion from './components/CustomerByRegion';
+import AddEditCustomer from './components/AddEditCustomer';
 const Tab = createBottomTabNavigator();
 
 
@@ -17,6 +18,7 @@ export default function App() {
           <Tab.Screen name="Home" component={Home} />
           <Tab.Screen name="SelectRegion" component={SelectRegion} />
           <Tab.Screen name="CustomerByRegion" component={CustomerByRegion} />
+          <Tab.Screen name="Add Customer" component={AddEditCustomer} />
         </Tab.Navigator>
       </NavigationContainer>
   );
