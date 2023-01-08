@@ -3,7 +3,7 @@ import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { STORE_REGION } from '../async_storage_names/index.js'
+import { STORE_REGION } from '../async_storage_data/index.js'
 
 
 export default function SelectRegion(props) {
