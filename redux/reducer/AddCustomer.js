@@ -7,7 +7,7 @@ const initialState = {
 	customers: []
 }
 
-export const updateRegion = (state = initialState, action) => {
+export const addCustomer = (state = initialState, action) => {
     let returnVar = null;
     if (action.type == ADD_CUSTOMER) {
         var customers = state.customers.concat(action.payload.customer)
@@ -17,7 +17,7 @@ export const updateRegion = (state = initialState, action) => {
             ...state,
             customers: customers
         }
-        
+
     } else {
         returnVar = state;
     }
