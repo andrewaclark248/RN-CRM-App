@@ -13,5 +13,5 @@ function CustomerByRegion(props) {
   
 
   export default connect((state) => ({
-    region: state.region.region
-  }))(CustomerByRegion);
+    region: state.regionReducer.region
+  }), null)(CustomerByRegion);

@@ -41,17 +41,10 @@ function SelectRegion(props) {
     if (region == undefined || region == "") {
       return
     } else {
+      //save to redux and async storage
       props.dispatch({type: UPDATE_REGION, payload: {region: region}})
-      //await storeData(region);  //async storage
+      //change page
       props.navigation.navigate('CustomerByRegion', {region: region})
-    }
-  }
-
-  const storeData = async (value) => {
-    try {
-      await AsyncStorage.setItem(STORE_REGION, value)
-    } catch (e) {
-      console.log("async storage error")
     }
   }
 
