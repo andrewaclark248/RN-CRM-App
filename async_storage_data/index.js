@@ -1,1 +1,3 @@
 export const STORE_REGION = "STORE_REGION"
+
+export const STORE_CUSTOMER = "STORE_CUSTOMER"

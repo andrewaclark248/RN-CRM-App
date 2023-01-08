@@ -1,7 +1,11 @@
-import { View, Text } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { useState } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
+import { storeData } from '../async_storage_data/AsyncData';
+import { STORE_CUSTOMER } from '../async_storage_data/index';
+const uuidv4 = require("uuid/v4")
+
 
 export default function AddEditCustomer(props) {
     //state vars
@@ -25,8 +29,7 @@ export default function AddEditCustomer(props) {
 
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Add Edit Customer!</Text>
-        <SafeAreaView>
+        <Text style={{paddingBottom: 20}} >Add/Edit Customer!</Text>
             <TextInput
                 style={styles.input}
                 onChangeText={(e) => setFirstName(e)}
@@ -55,9 +58,23 @@ export default function AddEditCustomer(props) {
                 onChangeText={() => console.log("some log")}
                 placeholder={ region == null ? "Region" : region}
             />
-        </SafeAreaView>
+            <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region)}>
+                <Text style={styles.text}>Add Customer</Text>
+            </Pressable>
       </View>
     );
+  }
+
+  async function addCustomer(props, firstName, lastName, status, region) {
+      let customer = {
+          id: uuidv4(),
+          firstName: firstName,
+          lastName: lastName,
+          status: status,
+          region: region
+      }
+    
+    await storeData(STORE_CUSTOMER, customer)
   }
 
 
@@ -67,7 +84,7 @@ export default function AddEditCustomer(props) {
       height: 40,
       borderWidth: 1,
       padding: 10,
-      marginBottom: 20
+      marginBottom: 20,
     },
     dropdown: {
         width: 150,
@@ -77,6 +94,22 @@ export default function AddEditCustomer(props) {
         borderRadius: 8,
         paddingHorizontal: 8,
         marginBottom: 20
+      },
+    button: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingVertical: 12,
+        paddingHorizontal: 32,
+        borderRadius: 4,
+        elevation: 3,
+        backgroundColor: 'black',
+      },
+    text: {
+        fontSize: 16,
+        lineHeight: 21,
+        fontWeight: 'bold',
+        letterSpacing: 0.25,
+        color: 'white',
       },
   });
   
