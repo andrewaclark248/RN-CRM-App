@@ -4,9 +4,10 @@ import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { STORE_REGION } from '../async_storage_data/index.js'
+import { UPDATE_REGION } from '../redux/actions/updateRegion'
+import { connect } from "react-redux";
 
-
-export default function SelectRegion(props) {
+function SelectRegion(props) {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -40,7 +41,8 @@ export default function SelectRegion(props) {
     if (region == undefined || region == "") {
       return
     } else {
-      await storeData(region);  //async storage
+      props.dispatch({type: UPDATE_REGION, payload: {region: region}})
+      //await storeData(region);  //async storage
       props.navigation.navigate('CustomerByRegion', {region: region})
     }
   }
@@ -52,6 +54,8 @@ export default function SelectRegion(props) {
       console.log("async storage error")
     }
   }
+
+  export default connect(null, null)(SelectRegion);
   
 
   const styles = StyleSheet.create({

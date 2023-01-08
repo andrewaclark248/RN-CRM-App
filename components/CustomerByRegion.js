@@ -1,7 +1,9 @@
 import { View, Text } from 'react-native';
+import { connect } from "react-redux";
 
 
-export default function CustomerByRegion(props) {
+function CustomerByRegion(props) {
+  console.log("customer region props ===", props.region)
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Customer By Region!</Text>
@@ -9,3 +11,7 @@ export default function CustomerByRegion(props) {
     );
   }
   
+
+  export default connect((state) => ({
+    region: state.region.region
+  }))(CustomerByRegion);
