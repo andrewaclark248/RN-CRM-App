@@ -2,8 +2,8 @@ import { View, Text, Button } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import {AsyncStorage} from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { STORE_REGION } from '../async_storage_names/index.js'
 
 
 export default function SelectRegion(props) {
@@ -27,6 +27,7 @@ export default function SelectRegion(props) {
           valueField="value"
           onChange={(item) => setValue(item.value)}
           onChangeText={() => console.log("some log")}
+          placeholder={ value == null ? "Regions" : value}
         />
         <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>
           <Text style={styles.text}>See Customer In Region</Text>
@@ -35,16 +36,21 @@ export default function SelectRegion(props) {
     );
   }
 
-  function navigateToCustomerByRegion(props, region) {
+  async function navigateToCustomerByRegion(props, region) {
     if (region == undefined || region == "") {
       return
     } else {
-
-      //async storage
-      props.navigation.navigate('CustomerByRegion', {name: 'Jane'})
-
+      await storeData(region);  //async storage
+      props.navigation.navigate('CustomerByRegion', {region: region})
     }
+  }
 
+  const storeData = async (value) => {
+    try {
+      await AsyncStorage.setItem(STORE_REGION, value)
+    } catch (e) {
+      console.log("async storage error")
+    }
   }
   
 
