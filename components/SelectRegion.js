@@ -2,6 +2,8 @@ import { View, Text, Button } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
+import {AsyncStorage} from 'react-native';
+
 
 
 export default function SelectRegion(props) {
@@ -9,10 +11,10 @@ export default function SelectRegion(props) {
   const [isFocus, setIsFocus] = useState(false);
 
   const data = [
-    { label: 'Item 1', value: '1' },
-    { label: 'Item 2', value: '2' },
-    { label: 'Item 3', value: '3' },
-    { label: 'Item 4', value: '4' },
+    { label: 'South', value: 'South' },
+    { label: 'North', value: 'North' },
+    { label: 'East', value: 'East' },
+    { label: 'West', value: 'West' },
   ];
 
     return (
@@ -23,20 +25,25 @@ export default function SelectRegion(props) {
           data={data}
           labelField="label"
           valueField="value"
-          onChange={() => console.log("some log")}
+          onChange={(item) => setValue(item.value)}
           onChangeText={() => console.log("some log")}
         />
-        <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props)}>
+        <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>
           <Text style={styles.text}>See Customer In Region</Text>
         </Pressable>
       </View>
     );
   }
 
-  function navigateToCustomerByRegion(props) {
-    //navigate
-    //async storage
-    props.navigation.navigate('CustomerByRegion', {name: 'Jane'})
+  function navigateToCustomerByRegion(props, region) {
+    if (region == undefined || region == "") {
+      return
+    } else {
+
+      //async storage
+      props.navigation.navigate('CustomerByRegion', {name: 'Jane'})
+
+    }
 
   }
   
