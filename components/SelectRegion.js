@@ -26,7 +26,7 @@ export default function SelectRegion(props) {
           labelField="label"
           valueField="value"
           onChange={(item) => setValue(item.value)}
-          onChangeText={() => console.log("some log")}
+          onChangeText={() => {}}
           placeholder={ value == null ? "Regions" : value}
         />
         <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>

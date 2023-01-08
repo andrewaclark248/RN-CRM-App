@@ -73,7 +73,7 @@ export default function AddEditCustomer(props) {
           status: status,
           region: region
       }
-    await storeData(STORE_CUSTOMER, customer)
+    await storeData(STORE_CUSTOMER, JSON.stringify(customer))
     
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
