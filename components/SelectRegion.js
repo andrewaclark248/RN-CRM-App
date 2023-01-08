@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 
 
-export default function SelectRegion() {
+export default function SelectRegion(props) {
   const [value, setValue] = useState(null);
   const [isFocus, setIsFocus] = useState(false);
 
@@ -26,11 +26,18 @@ export default function SelectRegion() {
           onChange={() => console.log("some log")}
           onChangeText={() => console.log("some log")}
         />
-        <Pressable style={styles.button} onPress={() => console.log("button pressed")}>
+        <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props)}>
           <Text style={styles.text}>See Customer In Region</Text>
         </Pressable>
       </View>
     );
+  }
+
+  function navigateToCustomerByRegion(props) {
+    //navigate
+    //async storage
+    props.navigation.navigate('CustomerByRegion', {name: 'Jane'})
+
   }
   
 
