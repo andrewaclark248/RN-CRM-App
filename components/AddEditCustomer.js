@@ -3,11 +3,12 @@ import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { useState } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
 import { storeData } from '../async_storage_data/AsyncData';
-import { STORE_CUSTOMER } from '../async_storage_data/index';
+import { ADD_CUSTOMER }  from '../redux/actions/addCustomer'
 const uuidv4 = require("uuid/v4")
+import { connect } from "react-redux";
 
 
-export default function AddEditCustomer(props) {
+function AddEditCustomer(props) {
     //state vars
     const [firstName, setFirstName] = useState("First Name");
     const [lastName, setLastName] = useState("Last Name");
@@ -66,19 +67,21 @@ export default function AddEditCustomer(props) {
   }
 
   async function addCustomer(props, firstName, lastName, status, region) {
-      let customer = {
-          id: uuidv4(),
-          firstName: firstName,
-          lastName: lastName,
-          status: status,
-          region: region
-      }
-    await storeData(STORE_CUSTOMER, customer)
-    
+    let customer = {
+        id: uuidv4(),
+        firstName: firstName,
+        lastName: lastName,
+        status: status,
+        region: region
+    }
+    //save to redux and async storage
+    props.dispatch({type: ADD_CUSTOMER, payload: {customer: customer}})
+    //await storeData(STORE_CUSTOMER, customer)
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
   }
 
+  export default connect(null, null)(AddEditCustomer);
 
   const styles = StyleSheet.create({
     input: {

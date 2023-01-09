@@ -10,17 +10,23 @@ import CustomerByRegion from './components/CustomerByRegion';
 import AddEditCustomer from './components/AddEditCustomer';
 const Tab = createBottomTabNavigator();
 
+import { Provider } from 'react-redux';
+import store from './redux/reducer/store.js';
+import { connect } from "react-redux";
 
 export default function App() {
   return (
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={Home} />
-          <Tab.Screen name="SelectRegion" component={SelectRegion} />
-          <Tab.Screen name="CustomerByRegion" component={CustomerByRegion} />
-          <Tab.Screen name="Add Customer" component={AddEditCustomer} />
-        </Tab.Navigator>
-      </NavigationContainer>
+      <Provider store={store}>
+        <NavigationContainer>
+          <Tab.Navigator>
+            <Tab.Screen name="Home" component={Home} />
+            <Tab.Screen name="SelectRegion" component={SelectRegion} />
+            <Tab.Screen name="CustomerByRegion" component={CustomerByRegion} />
+            <Tab.Screen name="Add Customer" component={AddEditCustomer} />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </Provider>
+
   );
 }
 
@@ -32,3 +38,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
+
+
