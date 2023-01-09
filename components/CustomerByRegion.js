@@ -3,7 +3,9 @@ import { connect } from "react-redux";
 
 
 function CustomerByRegion(props) {
-  console.log("customer region props ===", props.customers)
+    var customersInRegion = props.customers.filter((customer) => {
+      return customer.region == props.region
+    })
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Customer By Region!</Text>
