@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { connect } from "react-redux";
 import { DataTable } from 'react-native-paper';
 
@@ -18,6 +18,8 @@ function CustomerByRegion(props) {
             <DataTable.Title>Last Name</DataTable.Title>
             <DataTable.Title>Region</DataTable.Title>
             <DataTable.Title>Status</DataTable.Title>
+            <DataTable.Title></DataTable.Title>
+
           </DataTable.Header>
             {customersInRegion.map((customer, index) => {
               {return(
@@ -26,6 +28,11 @@ function CustomerByRegion(props) {
                   <DataTable.Cell>{ customer.lastName }</DataTable.Cell>
                   <DataTable.Cell>{ customer.region }</DataTable.Cell>
                   <DataTable.Cell>{ customer.status }</DataTable.Cell>
+                  <DataTable.Cell>
+                    <Pressable style={styles.button} onPress={() => props.navigation.navigate("Add Customer", {customerId: customer.id})}>
+                        <Text style={styles.text}>Edit</Text>
+                    </Pressable>
+                  </DataTable.Cell>
                 </DataTable.Row>
               )}
 
@@ -50,5 +57,21 @@ function CustomerByRegion(props) {
     },
     tableHeader: {
       backgroundColor: '#DCDCDC',
+    },
+    button: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 12,
+      paddingHorizontal: 32,
+      borderRadius: 4,
+      elevation: 3,
+      backgroundColor: 'black',
+    },
+  text: {
+      fontSize: 13,
+      lineHeight: 21,
+      fontWeight: 'bold',
+      letterSpacing: 0.25,
+      color: 'white',
     },
   });
