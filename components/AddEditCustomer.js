@@ -3,17 +3,29 @@ import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { useState } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
 import { storeData } from '../async_storage_data/AsyncData';
-import { ADD_CUSTOMER }  from '../redux/actions/addCustomer'
+import { ADD_CUSTOMER, UPDATE_CUSTOMER }  from '../redux/actions/addCustomer'
 const uuidv4 = require("uuid/v4")
 import { connect } from "react-redux";
 
 
 function AddEditCustomer(props) {
+    let editCustomer = false;
+    let action = ADD_CUSTOMER;
+    let customer = null;
+    if (props?.route?.params?.customerId != undefined) {
+      editCustomer = true;
+      action = UPDATE_CUSTOMER;
+      customer = props.customers.filter((customer) => {
+        return customer.id = props.route.params.customerId;
+      })[0]
+      console.log()
+    }
+
     //state vars
-    const [firstName, setFirstName] = useState("First Name");
-    const [lastName, setLastName] = useState("Last Name");
-    const [status, setStatus] = useState(null);
-    const [region, setRegion] = useState(null);
+    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName :"First Name");
+    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"First Name");
+    const [status, setStatus] = useState(editCustomer ? customer.status : null);
+    const [region, setRegion] = useState(editCustomer ? customer.region : null);
     const [isFocus, setIsFocus] = useState(false);
 
     //drop down options
@@ -46,6 +58,7 @@ function AddEditCustomer(props) {
                 data={listOfStatuses}
                 labelField="label"
                 valueField="value"
+                value={status}
                 onChange={(item) => setStatus(item.value)}
                 onChangeText={() => console.log(" log")}
                 placeholder={ status == null ? "Status" : status}
@@ -55,33 +68,37 @@ function AddEditCustomer(props) {
                 data={listOfRegions}
                 labelField="label"
                 valueField="value"
+                value={status}
                 onChange={(item) => setRegion(item.value)}
                 onChangeText={() => console.log("some log")}
                 placeholder={ region == null ? "Region" : region}
             />
-            <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region)}>
+            <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region, customer?.id, action)}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
       </View>
     );
   }
 
-  async function addCustomer(props, firstName, lastName, status, region) {
+  async function addCustomer(props, firstName, lastName, status, region, id, action) {
+    let customerId = (action == UPDATE_CUSTOMER ? id : uuidv4())
     let customer = {
-        id: uuidv4(),
+        id: customerId,
         firstName: firstName,
         lastName: lastName,
         status: status,
         region: region
     }
     //save to redux and async storage
-    props.dispatch({type: ADD_CUSTOMER, payload: {customer: customer}})
+    props.dispatch({type: action, payload: {customer: customer}})
     //await storeData(STORE_CUSTOMER, customer)
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
   }
 
-  export default connect(null, null)(AddEditCustomer);
+  export default connect((state) => ({
+    customers: state.customerReducer.customers
+  }), null)(AddEditCustomer);
 
   const styles = StyleSheet.create({
     input: {
