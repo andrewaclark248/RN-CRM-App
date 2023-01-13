@@ -35,7 +35,7 @@ export const addCustomer = (state = initialState, action) => {
         customer.status = action.payload.customer.status
 
         var allCustomer = state.customers.filter((customer) => {
-			return customer.id != action.payload.id
+			return customer.id != action.payload.customer.id
 		})
         var listOfCustomers = allCustomer.concat(customer)
 
