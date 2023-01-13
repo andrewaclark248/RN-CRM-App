@@ -23,7 +23,7 @@ function AddEditCustomer(props) {
 
     //state vars
     const [firstName, setFirstName] = useState(editCustomer ? customer.firstName :"First Name");
-    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"First Name");
+    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last Name");
     const [status, setStatus] = useState(editCustomer ? customer.status : null);
     const [region, setRegion] = useState(editCustomer ? customer.region : null);
     const [isFocus, setIsFocus] = useState(false);
@@ -68,7 +68,7 @@ function AddEditCustomer(props) {
                 data={listOfRegions}
                 labelField="label"
                 valueField="value"
-                value={status}
+                value={region}
                 onChange={(item) => setRegion(item.value)}
                 onChangeText={() => console.log("some log")}
                 placeholder={ region == null ? "Region" : region}
