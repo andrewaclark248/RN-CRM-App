@@ -1,13 +1,16 @@
 import { View, Text, Alert, StyleSheet, Pressable } from 'react-native';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from '../redux/actions/toggleAsyncStorage'
+import { SHOW_CREATED_CUSTOMER_ALERT }  from '../redux/actions/showAlertAction.js'
 
 
 function Home(props) {
   var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
-  //let [asyncToggle, setAsyncToggle] = useState()
-  if (props?.route?.params?.showCreateCustomerAlert != undefined) {
+
+  console.log("showCreatedCustomerAlert = " + props.showCreatedCustomerAlert)
+
+  if (props?.showCreatedCustomerAlert) {
     Alert.alert(
       "Customer Created",
       "A Customer Was Created.",
@@ -15,6 +18,14 @@ function Home(props) {
         { text: "OK", onPress: () => console.log("OK Pressed") }
       ]
     );
+
+    setTimeout(() => {
+      //show alert
+      props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
+    }, "1000")
+
+
+
   }
   return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -36,6 +47,7 @@ function Home(props) {
   
   export default connect((state) => ({
     asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle,
+    showCreatedCustomerAlert: state.showAlertReducer.showCreatedCustomerAlert
   }), null)(Home);
 
   //asyncStorageReducer

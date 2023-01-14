@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
 import { storeData } from '../async_storage_data/AsyncData';
 import { ADD_CUSTOMER, UPDATE_CUSTOMER }  from '../redux/actions/addCustomer'
+import { SHOW_CREATED_CUSTOMER_ALERT }  from '../redux/actions/showAlertAction.js'
 const uuidv4 = require("uuid/v4")
 import { connect } from "react-redux";
 
@@ -90,6 +91,10 @@ function AddEditCustomer(props) {
     }
     //save to redux and async storage
     props.dispatch({type: action, payload: {customer: customer, saveToAsyncStorage: props.asyncStorageToggle}})
+    
+    //show alert
+    props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
+    
     //await storeData(STORE_CUSTOMER, customer)
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
