@@ -7,7 +7,7 @@ import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from '../redux/actions/toggleAsy
 function Home(props) {
   var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
   //let [asyncToggle, setAsyncToggle] = useState()
-  if (props?.route?.params?.showCreateCustomerAlert != null && props?.route?.params?.showCreateCustomerAlert != undefined) {
+  if (props?.route?.params?.showCreateCustomerAlert != undefined) {
     Alert.alert(
       "Customer Created",
       "A Customer Was Created.",

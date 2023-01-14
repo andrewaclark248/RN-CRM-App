@@ -39,6 +39,10 @@ export const addCustomer = (state = initialState, action) => {
 		})
         var listOfCustomers = allCustomer.concat(customer)
 
+        if (action?.payload?.saveToAsyncStorage) {
+            storeData(STORE_CUSTOMER, JSON.stringify(listOfCustomers))
+        }
+
         returnVar = {
             ...state,
             customers: listOfCustomers
