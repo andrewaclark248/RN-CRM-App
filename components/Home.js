@@ -16,11 +16,10 @@ function Home(props) {
       ]
     );
   }
-  console.log(props.asyncStorageToggle)
   return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <View>
+          <Text style={{ paddingBottom: 20 }}>Toggle Async Storage</Text>
           <Pressable style={styles.button} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
               <Text style={styles.text}>{asyncToggle}</Text>
           </Pressable>
