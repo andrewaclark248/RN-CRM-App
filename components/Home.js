@@ -1,7 +1,12 @@
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, StyleSheet, Pressable } from 'react-native';
 import { useState } from 'react'
+import { connect } from "react-redux";
+import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from '../redux/actions/toggleAsyncStorage'
 
-export default function Home(props) {
+
+function Home(props) {
+  var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
+  //let [asyncToggle, setAsyncToggle] = useState()
   if (props?.route?.params?.showCreateCustomerAlert != null && props?.route?.params?.showCreateCustomerAlert != undefined) {
     Alert.alert(
       "Customer Created",
@@ -11,11 +16,46 @@ export default function Home(props) {
       ]
     );
   }
-
+  console.log(props.asyncStorageToggle)
   return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Home!</Text>
+        <View>
+          <Pressable style={styles.button} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
+              <Text style={styles.text}>{asyncToggle}</Text>
+          </Pressable>
+        </View>
       </View>
     );
   }
+ 
+
+  function updateAsyncReduxState(props, asyncStorageToggle) {
+    let action = asyncStorageToggle ? OFF_ASYNC_STORAGE : ON_ASYNC_STORAGE
+    props.dispatch({type: action})
+  }
   
+  export default connect((state) => ({
+    asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle,
+  }), null)(Home);
+
+  //asyncStorageReducer
+  //asyncStorageToggle
+  
+  const styles = StyleSheet.create({
+
+    button: {
+      marginTop: 5,
+      padding: 8,
+      borderRadius: 4,
+      borderWidth: 1,
+      backgroundColor: 'black',
+      height: 35,
+      alignItems: 'center'
+    },
+    text: {
+        fontSize: 14,
+        color: 'white',
+        textAlign: 'center'
+    }
+  });

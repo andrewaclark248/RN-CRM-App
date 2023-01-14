@@ -18,7 +18,6 @@ function AddEditCustomer(props) {
       customer = props.customers.filter((customer) => {
         return customer.id = props.route.params.customerId;
       })[0]
-      console.log()
     }
 
     //state vars
@@ -60,7 +59,7 @@ function AddEditCustomer(props) {
                 valueField="value"
                 value={status}
                 onChange={(item) => setStatus(item.value)}
-                onChangeText={() => console.log(" log")}
+                onChangeText={() => {}}
                 placeholder={ status == null ? "Status" : status}
             />
             <Dropdown
@@ -70,7 +69,7 @@ function AddEditCustomer(props) {
                 valueField="value"
                 value={region}
                 onChange={(item) => setRegion(item.value)}
-                onChangeText={() => console.log("some log")}
+                onChangeText={() => {}}
                 placeholder={ region == null ? "Region" : region}
             />
             <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region, customer?.id, action)}>

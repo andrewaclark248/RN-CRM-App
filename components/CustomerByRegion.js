@@ -7,8 +7,7 @@ function CustomerByRegion(props) {
     let customersInRegion = props.customers.filter((customer) => {
       return customer.region == props.region
     })
-    console.log(props.region)
-    console.log("customers in region === ", customersInRegion)
+
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Text>Customer By Region!</Text>
