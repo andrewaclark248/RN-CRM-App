@@ -89,14 +89,15 @@ function AddEditCustomer(props) {
         region: region
     }
     //save to redux and async storage
-    props.dispatch({type: action, payload: {customer: customer}})
+    props.dispatch({type: action, payload: {customer: customer, saveToAsyncStorage: props.asyncStorageToggle}})
     //await storeData(STORE_CUSTOMER, customer)
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
   }
 
   export default connect((state) => ({
-    customers: state.customerReducer.customers
+    customers: state.customerReducer.customers,
+    asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle
   }), null)(AddEditCustomer);
 
   const styles = StyleSheet.create({

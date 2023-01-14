@@ -9,11 +9,15 @@ const initialState = {
 
 export const addCustomer = (state = initialState, action) => {
 
+    console.log("saveToAsyncStorage = " + action?.payload?.saveToAsyncStorage)
+
     let returnVar = null;
     if (action.type == ADD_CUSTOMER) {
         var customers = state.customers.concat(action.payload.customer)
-
-        storeData(STORE_CUSTOMER, JSON.stringify(customers))
+        
+        if (action?.payload?.saveToAsyncStorage) {
+            storeData(STORE_CUSTOMER, JSON.stringify(customers))
+        }
         returnVar = {
             ...state,
             customers: customers
@@ -24,10 +28,6 @@ export const addCustomer = (state = initialState, action) => {
         var customer = state.customers.filter((customer) => {
 			return customer.id == action.payload.customer.id
 		})[0]
-
-        console.log("add customer reducer")
-        console.log(action.payload.customer.id)
-
 
         customer.firstName = action.payload.customer.firstName
         customer.lastName = action.payload.customer.lastName
