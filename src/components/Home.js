@@ -24,13 +24,16 @@ function Home(props) {
 
   }
   return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <View>
-          <Text style={{ paddingBottom: 20 }}>Toggle Async Storage</Text>
+      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100}}>
+        <View style={{flex: 1, paddingBottom: 30}}>
+          <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }}>Toggle Async Storage</Text>
+        </View>
+        <View style={{flex: 1}}>
           <Pressable style={styles.button} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
               <Text style={styles.text}>{asyncToggle}</Text>
           </Pressable>
         </View>
+
       </View>
     );
   }

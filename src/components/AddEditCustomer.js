@@ -48,18 +48,25 @@ function AddEditCustomer(props) {
     ];
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{paddingBottom: 20}} >Add/Edit Customer!</Text>
+      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100 }}>
+          <View style={{flex: 1, paddingBottom: 50}}>
+            <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }} >Add/Edit Customer!</Text>
+          </View>
+          <View style={{flex: 1, paddingBottom: 50}}>
             <TextInput
-                style={styles.input}
-                onChangeText={(e) => setFirstName(e)}
-                value={firstName}
-            />
+                  style={styles.input}
+                  onChangeText={(e) => setFirstName(e)}
+                  value={firstName}
+              />
+          </View>
+          <View style={{flex: 1, paddingBottom: 60}}>
             <TextInput
-                style={styles.input}
-                onChangeText={(e) => setLastName(e)}
-                value={lastName}
+                  style={styles.input}
+                  onChangeText={(e) => setLastName(e)}
+                  value={lastName}
             />
+          </View>
+          <View style={{flex: 1, paddingBottom: 60}}>
             <Dropdown
                 style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
                 data={listOfStatuses}
@@ -70,19 +77,25 @@ function AddEditCustomer(props) {
                 onChangeText={() => {}}
                 placeholder={ status == null ? "Status" : status}
             />
+          </View>
+          <View style={{flex: 1, paddingBottom: 70}}>
             <Dropdown
-                style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-                data={listOfRegions}
-                labelField="label"
-                valueField="value"
-                value={region}
-                onChange={(item) => setRegion(item.value)}
-                onChangeText={() => {}}
-                placeholder={ region == null ? "Region" : region}
-            />
+                  style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                  data={listOfRegions}
+                  labelField="label"
+                  valueField="value"
+                  value={region}
+                  onChange={(item) => setRegion(item.value)}
+                  onChangeText={() => {}}
+                  placeholder={ region == null ? "Region" : region}
+              />
+          </View>
+          <View style={{flex: 1, paddingBottom: 50}}>
             <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region, customer?.id, action)}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
+
+          </View>
       </View>
     );
   }
@@ -174,6 +187,7 @@ const askNotification = async () => {
         borderRadius: 4,
         elevation: 3,
         backgroundColor: 'black',
+        height: 40
       },
     text: {
         fontSize: 16,
