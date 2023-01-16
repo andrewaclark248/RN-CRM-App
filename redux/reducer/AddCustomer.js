@@ -9,8 +9,6 @@ const initialState = {
 
 export const addCustomer = (state = initialState, action) => {
 
-    console.log("saveToAsyncStorage = " + action?.payload?.saveToAsyncStorage)
-
     let returnVar = null;
     if (action.type == ADD_CUSTOMER) {
         var customers = state.customers.concat(action.payload.customer)
