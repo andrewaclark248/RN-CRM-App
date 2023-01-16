@@ -38,7 +38,6 @@ function SelectRegion(props) {
             <Text style={styles.text}>See Customer In Region</Text>
           </Pressable>
         </View>
-
       </View>
     );
   }
