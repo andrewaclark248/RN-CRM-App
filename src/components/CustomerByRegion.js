@@ -9,39 +9,44 @@ function CustomerByRegion(props) {
     })
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Customer By Region!</Text>
-        <DataTable style={styles.container}>
-          <DataTable.Header style={styles.tableHeader}>
-            <DataTable.Title>First Name</DataTable.Title>
-            <DataTable.Title>Last Name</DataTable.Title>
-            <DataTable.Title>Region</DataTable.Title>
-            <DataTable.Title>Status</DataTable.Title>
-            <DataTable.Title></DataTable.Title>
+      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100 }}>
+        <View style={{flex: 1, paddingBottom: 50}}>
+          <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }}>Customer By Region!</Text>
+        </View>
+        <View style={{flex: 1}}>
+          <DataTable style={styles.container}>
+            <DataTable.Header style={styles.tableHeader}>
+              <DataTable.Title>First Name</DataTable.Title>
+              <DataTable.Title>Last Name</DataTable.Title>
+              <DataTable.Title>Region</DataTable.Title>
+              <DataTable.Title>Status</DataTable.Title>
+              <DataTable.Title></DataTable.Title>
 
-          </DataTable.Header>
-            {customersInRegion.map((customer, index) => {
-              {return(
-                <DataTable.Row key={index} style={styles.rowHeight}>
-                  <DataTable.Cell>{ customer.firstName }</DataTable.Cell>
-                  <DataTable.Cell>{ customer.lastName }</DataTable.Cell>
-                  <DataTable.Cell>{ customer.region }</DataTable.Cell>
-                  <DataTable.Cell>{ customer.status }</DataTable.Cell>
-                  <DataTable.Cell>
-                    <View>
-                    <Pressable style={styles.button} onPress={() => props.navigation.navigate("Add Customer", {customerId: customer.id})}>
-                        <Text style={styles.text}>Edit</Text>
-                    </Pressable>
-                    </View>
-                  </DataTable.Cell>
-                </DataTable.Row>
-              )}
+            </DataTable.Header>
+              {customersInRegion.map((customer, index) => {
+                {return(
+                  <DataTable.Row key={index} style={styles.rowHeight}>
+                    <DataTable.Cell>{ customer.firstName }</DataTable.Cell>
+                    <DataTable.Cell>{ customer.lastName }</DataTable.Cell>
+                    <DataTable.Cell>{ customer.region }</DataTable.Cell>
+                    <DataTable.Cell>{ customer.status }</DataTable.Cell>
+                    <DataTable.Cell>
+                      <View>
+                      <Pressable style={styles.button} onPress={() => props.navigation.navigate("Add Customer", {customerId: customer.id})}>
+                          <Text style={styles.text}>Edit</Text>
+                      </Pressable>
+                      </View>
+                    </DataTable.Cell>
+                  </DataTable.Row>
+                )}
 
-            })
-            }
-          
+              })
+              }
+            
 
-        </DataTable> 
+          </DataTable> 
+        </View>
+
       </View>
     );
   }
@@ -55,6 +60,7 @@ function CustomerByRegion(props) {
   const styles = StyleSheet.create({
     container: {
       padding: 15,
+      width: 350
     },
     tableHeader: {
       backgroundColor: '#DCDCDC',
