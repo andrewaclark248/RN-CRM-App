@@ -1,6 +1,6 @@
-import { UPDATE_REGION } from '../actions/updateRegion'
-import { storeData } from '../../async_storage_data/AsyncData'
-import { STORE_REGION } from '../../async_storage_data/index'
+import { UPDATE_REGION } from '../../actions/updateRegion'
+import { storeData } from '../../../async_storage_data/AsyncData'
+import { STORE_REGION } from '../../../async_storage_data/index'
 
 
 const initialState = {
