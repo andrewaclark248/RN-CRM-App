@@ -17,20 +17,28 @@ function SelectRegion(props) {
   ];
 
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Select Region!</Text>
-        <Dropdown
-          style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
-          data={data}
-          labelField="label"
-          valueField="value"
-          onChange={(item) => setValue(item.value)}
-          onChangeText={() => console.log("some log")}
-          placeholder={ value == null ? "Regions" : value}
-        />
-        <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>
-          <Text style={styles.text}>See Customer In Region</Text>
-        </Pressable>
+      <View style={{  justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100}}>
+        <View style={{flex: 1, paddingBottom: 30}}>
+          <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }} >Select Region!</Text>
+        </View>
+
+        <View style={{flex: 1, paddingBottom: 70}}>
+          <Dropdown
+            style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+            data={data}
+            labelField="label"
+            valueField="value"
+            onChange={(item) => setValue(item.value)}
+            onChangeText={() => console.log("some log")}
+            placeholder={ value == null ? "Regions" : value}
+          />
+        </View>
+        <View style={{flex: 1, paddingBottom: 30}}>
+          <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>
+            <Text style={styles.text}>See Customer In Region</Text>
+          </Pressable>
+        </View>
+
       </View>
     );
   }
@@ -56,7 +64,7 @@ function SelectRegion(props) {
     },
     dropdown: {
       width: 150,
-      height: 50,
+      height: 40,
       borderColor: 'gray',
       borderWidth: 0.5,
       borderRadius: 8,
@@ -97,6 +105,7 @@ function SelectRegion(props) {
       borderRadius: 4,
       elevation: 3,
       backgroundColor: 'black',
+      height: 40
     },
     text: {
       fontSize: 16,
