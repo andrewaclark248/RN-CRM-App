@@ -2,9 +2,7 @@ import { View, Text, Button } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { STORE_REGION } from '../async_storage_data/index.js'
-import { UPDATE_REGION } from '../redux/actions/updateRegion'
+import { UPDATE_REGION } from './../../redux/actions/updateRegion'
 import { connect } from "react-redux";
 
 function SelectRegion(props) {

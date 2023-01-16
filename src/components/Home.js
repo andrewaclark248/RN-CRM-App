@@ -1,8 +1,8 @@
 import { View, Text, Alert, StyleSheet, Pressable } from 'react-native';
 import { useState, useEffect } from 'react'
 import { connect } from "react-redux";
-import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from '../redux/actions/toggleAsyncStorage'
-import { SHOW_CREATED_CUSTOMER_ALERT }  from '../redux/actions/showAlertAction.js'
+import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from './../../redux/actions/toggleAsyncStorage'
+import { SHOW_CREATED_CUSTOMER_ALERT }  from './../../redux/actions/showAlertAction.js'
 
 
 function Home(props) {
