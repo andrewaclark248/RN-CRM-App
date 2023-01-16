@@ -9,11 +9,11 @@ function CustomerByRegion(props) {
     })
 
     return (
-      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100 }}>
-        <View style={{flex: 1, paddingBottom: 50}}>
-          <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }}>Customer By Region!</Text>
+      <View style={styles.flexStyle}>
+        <View style={styles.fleItemStyle}>
+          <Text style={styles.textStyle}>Customer By Region!</Text>
         </View>
-        <View style={{flex: 1}}>
+        <View style={styles.fleItemStyle}>
           <DataTable style={styles.container}>
             <DataTable.Header style={styles.tableHeader}>
               <DataTable.Title>First Name</DataTable.Title>
@@ -58,6 +58,20 @@ function CustomerByRegion(props) {
   }), null)(CustomerByRegion);
 
   const styles = StyleSheet.create({
+    textStyle: {
+      paddingBottom: 20, 
+      fontWeight: "bold", 
+      fontSize: "15"
+    },
+    flexStyle: {
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      flexDirection: "column", paddingTop: 100
+    },
+    fleItemStyle: {
+      flex: 1,
+      paddingBottom: 60,
+    },
     container: {
       padding: 15,
       width: 350

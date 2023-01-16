@@ -24,11 +24,11 @@ function Home(props) {
 
   }
   return (
-      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100}}>
-        <View style={{flex: 1, paddingBottom: 30}}>
-          <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }}>Toggle Async Storage</Text>
+      <View style={styles.flexStyle}>
+        <View style={styles.fleItemStyle}>
+          <Text style={styles.textStyle}>Toggle Async Storage</Text>
         </View>
-        <View style={{flex: 1}}>
+        <View style={styles.fleItemStyle}>
           <Pressable style={styles.button} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
               <Text style={styles.text}>{asyncToggle}</Text>
           </Pressable>
@@ -53,7 +53,20 @@ function Home(props) {
   //asyncStorageToggle
   
   const styles = StyleSheet.create({
-
+    textStyle: {
+      paddingBottom: 20, 
+      fontWeight: "bold", 
+      fontSize: "15"
+    },
+    flexStyle: {
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      flexDirection: "column", paddingTop: 100
+    },
+    fleItemStyle: {
+      flex: 1,
+      paddingBottom: 60,
+    },
     button: {
       marginTop: 5,
       padding: 8,

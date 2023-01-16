@@ -29,7 +29,7 @@ function AddEditCustomer(props) {
     }
 
     //state vars
-    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName :"First Name");
+    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName : "First Name");
     const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last Name");
     const [status, setStatus] = useState(editCustomer ? customer.status : null);
     const [region, setRegion] = useState(editCustomer ? customer.region : null);
@@ -48,27 +48,27 @@ function AddEditCustomer(props) {
     ];
 
     return (
-      <View style={{ justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100 }}>
-          <View style={{flex: 1, paddingBottom: 50}}>
-            <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }} >Add/Edit Customer!</Text>
+      <View style={styles.flexStyle}>
+          <View style={styles.fleItemStyle}>
+            <Text style={styles.textStyle} >Add/Edit Customer!</Text>
           </View>
-          <View style={{flex: 1, paddingBottom: 50}}>
+          <View style={styles.fleItemStyle}>
             <TextInput
                   style={styles.input}
                   onChangeText={(e) => setFirstName(e)}
                   value={firstName}
               />
           </View>
-          <View style={{flex: 1, paddingBottom: 60}}>
+          <View style={styles.fleItemStyle}>
             <TextInput
                   style={styles.input}
                   onChangeText={(e) => setLastName(e)}
                   value={lastName}
             />
           </View>
-          <View style={{flex: 1, paddingBottom: 60}}>
+          <View style={styles.fleItemStyle}>
             <Dropdown
-                style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                style={[styles.dropdown, isFocus]}
                 data={listOfStatuses}
                 labelField="label"
                 valueField="value"
@@ -78,9 +78,9 @@ function AddEditCustomer(props) {
                 placeholder={ status == null ? "Status" : status}
             />
           </View>
-          <View style={{flex: 1, paddingBottom: 70}}>
+          <View style={styles.fleItemStyle}>
             <Dropdown
-                  style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+                  style={[styles.dropdown, isFocus]}
                   data={listOfRegions}
                   labelField="label"
                   valueField="value"
@@ -90,7 +90,7 @@ function AddEditCustomer(props) {
                   placeholder={ region == null ? "Region" : region}
               />
           </View>
-          <View style={{flex: 1, paddingBottom: 50}}>
+          <View style={styles.fleItemStyle}>
             <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region, customer?.id, action)}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
@@ -163,6 +163,20 @@ const askNotification = async () => {
   }), null)(AddEditCustomer);
 
   const styles = StyleSheet.create({
+    textStyle: {
+      paddingBottom: 20, 
+      fontWeight: "bold", 
+      fontSize: "15"
+    },
+    flexStyle: {
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      flexDirection: "column", paddingTop: 100
+    },
+    fleItemStyle: {
+      flex: 1,
+      paddingBottom: 60,
+    },
     input: {
       width: 150,
       height: 40,
@@ -173,11 +187,11 @@ const askNotification = async () => {
     dropdown: {
         width: 150,
         height: 50,
-        borderColor: 'gray',
         borderWidth: 0.5,
         borderRadius: 8,
         paddingHorizontal: 8,
-        marginBottom: 20
+        marginBottom: 20,
+        borderColor: 'gray' 
       },
     button: {
         alignItems: 'center',
