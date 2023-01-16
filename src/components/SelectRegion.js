@@ -17,14 +17,14 @@ function SelectRegion(props) {
   ];
 
     return (
-      <View style={{  justifyContent: 'center', alignItems: 'center', flexDirection: "column", paddingTop: 100}}>
-        <View style={{flex: 1, paddingBottom: 30}}>
-          <Text style={{ paddingBottom: 20, fontWeight: "bold", fontSize: "15" }} >Select Region!</Text>
+      <View style={styles.flexStyle}>
+        <View style={styles.fleItemStyle}>
+          <Text style={styles.textStyle} >Select Region!</Text>
         </View>
 
-        <View style={{flex: 1, paddingBottom: 70}}>
+        <View style={styles.fleItemStyle}>
           <Dropdown
-            style={[styles.dropdown, isFocus && { borderColor: 'blue' }]}
+            style={[styles.dropdown, isFocus]}
             data={data}
             labelField="label"
             valueField="value"
@@ -33,7 +33,7 @@ function SelectRegion(props) {
             placeholder={ value == null ? "Regions" : value}
           />
         </View>
-        <View style={{flex: 1, paddingBottom: 30}}>
+        <View style={styles.fleItemStyle}>
           <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>
             <Text style={styles.text}>See Customer In Region</Text>
           </Pressable>
@@ -57,6 +57,20 @@ function SelectRegion(props) {
   
 
   const styles = StyleSheet.create({
+    textStyle: {
+      paddingBottom: 20, 
+      fontWeight: "bold", 
+      fontSize: "15"
+    },
+    flexStyle: {
+      justifyContent: 'center', 
+      alignItems: 'center', 
+      flexDirection: "column", paddingTop: 100
+    },
+    fleItemStyle: {
+      flex: 1,
+      paddingBottom: 60,
+    },
     container: {
       backgroundColor: 'white',
       padding: 16,
