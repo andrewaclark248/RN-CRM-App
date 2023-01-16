@@ -1,4 +1,4 @@
-import { SHOW_CREATED_CUSTOMER_ALERT } from '../actions/showAlertAction.js'
+import { SHOW_CREATED_CUSTOMER_ALERT } from '../../actions/showAlertAction.js'
 
 
 const initialState = {

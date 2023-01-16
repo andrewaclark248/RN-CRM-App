@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import { updateRegion } from './AddUpdateRegion'
-import { addCustomer } from './AddCustomer'
-import { asyncStorageReducer } from './AsyncStorageReducer'
-import { showAlertReducer } from './ShowAlert'
+import { updateRegion } from './Region/AddUpdateRegion'
+import { addCustomer } from './Customer/AddCustomer'
+import { asyncStorageReducer } from './AsyncStorage/AsyncStorageReducer'
+import { showAlertReducer } from './Alert/ShowAlert'
 
 
 

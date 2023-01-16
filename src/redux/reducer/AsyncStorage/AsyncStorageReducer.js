@@ -1,4 +1,4 @@
-import { ON_ASYNC_STORAGE, OFF_ASYNC_STORAGE } from '../actions/toggleAsyncStorage'
+import { ON_ASYNC_STORAGE, OFF_ASYNC_STORAGE } from '../../actions/toggleAsyncStorage'
 
 
 const initialState = {

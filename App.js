@@ -11,7 +11,7 @@ import AddEditCustomer from './src/components/AddEditCustomer';
 const Tab = createBottomTabNavigator();
 
 import { Provider } from 'react-redux';
-import store from './redux/reducer/store.js';
+import store from './src/redux/store/store.js';
 
 export default function App() {
   return (

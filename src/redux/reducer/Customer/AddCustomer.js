@@ -1,6 +1,6 @@
-import { ADD_CUSTOMER, UPDATE_CUSTOMER } from '../actions/addCustomer' //redux action
-import { STORE_CUSTOMER } from '../../async_storage_data/index' //async action
-import { storeData } from '../../async_storage_data/AsyncData'
+import { ADD_CUSTOMER, UPDATE_CUSTOMER } from '../../actions/addCustomer' //redux action
+import { STORE_CUSTOMER } from '../../../async_storage_data/index' //async action
+import { storeData } from '../../../async_storage_data/AsyncData'
 
 
 const initialState = {

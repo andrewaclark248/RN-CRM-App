@@ -2,9 +2,9 @@ import { View, Text, Pressable, Keyboard } from 'react-native';
 import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { useState, useEffect } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
-import { storeData } from '../../async_storage_data/AsyncData';
-import { ADD_CUSTOMER, UPDATE_CUSTOMER }  from '../../redux/actions/addCustomer'
-import { SHOW_CREATED_CUSTOMER_ALERT }  from '../../redux/actions/showAlertAction.js'
+import { storeData } from '../async_storage_data/AsyncData';
+import { ADD_CUSTOMER, UPDATE_CUSTOMER }  from '../redux/actions/addCustomer'
+import { SHOW_CREATED_CUSTOMER_ALERT }  from '../redux/actions/showAlertAction.js'
 const uuidv4 = require("uuid/v4")
 import { connect } from "react-redux";
 import * as Notifications from "expo-notifications";
