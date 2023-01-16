@@ -1,5 +1,4 @@
 import { View, Text, Alert, StyleSheet, Pressable } from 'react-native';
-import { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from './../../redux/actions/toggleAsyncStorage'
 import { SHOW_CREATED_CUSTOMER_ALERT }  from './../../redux/actions/showAlertAction.js'
@@ -7,8 +6,6 @@ import { SHOW_CREATED_CUSTOMER_ALERT }  from './../../redux/actions/showAlertAct
 
 function Home(props) {
   var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
-
-  console.log("showCreatedCustomerAlert = " + props.showCreatedCustomerAlert)
 
   if (props?.showCreatedCustomerAlert) {
     Alert.alert(
@@ -23,7 +20,6 @@ function Home(props) {
       //show alert
       props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
     }, "1000")
-
 
 
   }
