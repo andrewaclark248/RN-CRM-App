@@ -29,8 +29,8 @@ function AddEditCustomer(props) {
     }
 
     //state vars
-    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName : "First Name");
-    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last Name");
+    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName : "First");
+    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last");
     const [status, setStatus] = useState(editCustomer ? customer.status : null);
     const [region, setRegion] = useState(editCustomer ? customer.region : null);
     const [isFocus, setIsFocus] = useState(false);
@@ -91,7 +91,7 @@ function AddEditCustomer(props) {
               />
           </View>
           <View style={styles.fleItemStyle}>
-            <Pressable style={styles.button} onPress={() => addCustomer(props, firstName, lastName, status, region, customer?.id, action)}>
+            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customer?.id, action); resetForm(setFirstName, setLastName, setStatus, setRegion)}}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
 
@@ -119,6 +119,14 @@ function AddEditCustomer(props) {
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
     handleReminder()
+  }
+
+  function resetForm(setFirstName, setLastName, setStatus, setRegion) {
+    setFirstName("First")
+    setLastName("Last")
+    setStatus(null)
+    setRegion(null)
+
   }
 
   const handleReminder = () => {
