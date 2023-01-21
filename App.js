@@ -4,14 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as React from 'react';
 
-import Home from './src/components/Home.js';
-import SelectRegion from './src/components/SelectRegion';
-import CustomerByRegion from './src/components/CustomerByRegion';
-import AddEditCustomer from './src/components/AddEditCustomer';
+import Home from './src/screens/Home.js';
+import SelectRegion from './src/screens/SelectRegion';
+import CustomerByRegion from './src/screens/CustomerByRegion';
+import AddEditCustomer from './src/screens/AddEditCustomer';
 const Tab = createBottomTabNavigator();
 
 import { Provider } from 'react-redux';
-import store from './src/redux/store/store.js';
+import store from './src/store/store.js';
 
 export default function App() {
   return (
