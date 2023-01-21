@@ -10,6 +10,29 @@ import * as Notifications from "expo-notifications";
 
 
 function AddEditCustomer(props) {
+    //state vars
+    let [firstName, setFirstName] = useState("First");
+    let [lastName, setLastName] = useState("Last");
+    let [status, setStatus] = useState(null);
+    let [region, setRegion] = useState(null);
+    let [isFocus, setIsFocus] = useState(false);
+
+    const unsubscribe = props.navigation.addListener('blur', (e) => {
+      // Prevent default action
+      ///e.preventDefault();
+      if (props?.route?.params?.customerId == undefined)
+      {
+        resetForm(setFirstName, setLastName, setStatus, setRegion)
+      }// else {
+      //  console.log("customer present")
+      //}
+      //    props.navigation.setParams({customerId: null})
+      props.navigation.setParams({customerId: null})
+
+    });
+
+    //    props.navigation.setParams({customerId: null})
+
     useEffect(() => {
       const listener = Notifications.addNotificationReceivedListener(handleNotification);
       return () => listener.remove();
@@ -25,14 +48,20 @@ function AddEditCustomer(props) {
       customer = props.customers.filter((customer) => {
         return customer.id = props.route.params.customerId;
       })[0]
+      if (firstName != customer.firstName) {
+        setFirstName(customer.firstName)
+      }
+      if (lastName != customer.lastName) {
+        setLastName(customer.lastName)
+      }
+      if (status != customer.status) {
+        setStatus(customer.status)
+      }
+      if (region != customer.region) {
+        setRegion(customer.region)
+      }
     }
 
-    //state vars
-    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName : "First");
-    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last");
-    const [status, setStatus] = useState(editCustomer ? customer.status : null);
-    const [region, setRegion] = useState(editCustomer ? customer.region : null);
-    const [isFocus, setIsFocus] = useState(false);
 
     //drop down options
     const listOfRegions = [
@@ -101,6 +130,8 @@ function AddEditCustomer(props) {
 
   async function addCustomer(props, firstName, lastName, status, region, id, action) {
     let customerId = (action == UPDATE_CUSTOMER ? id : uuidv4())
+    //console.log("action == " + action)
+    //console.log("id == " + customerId)
     let customer = {
         id: customerId,
         firstName: firstName,
@@ -116,6 +147,7 @@ function AddEditCustomer(props) {
     
     //await storeData(STORE_CUSTOMER, customer)
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
+
 
     handleReminder()
   }
