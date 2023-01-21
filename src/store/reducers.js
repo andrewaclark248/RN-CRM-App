@@ -126,7 +126,7 @@ export const updateRegion = (state = regionInitialState, action) => {
 
 
 //current customer 
-import { CURRENT_CUSTOMER } from './actions/updateRegion'
+import { CURRENT_CUSTOMER } from './actions/currentCustomer.js'
 const currentCustomerInitialState = {
 	currentCustomer: null
 }
@@ -137,7 +137,7 @@ export const currentCustomerReducer = (state = currentCustomerInitialState, acti
     if (action.type == CURRENT_CUSTOMER) {
         returnVar = {
             ...state,
-            currentCustomer: action.payload.customerId
+            currentCustomer: action.payload.customer
         }
     } else {
         returnVar = state;

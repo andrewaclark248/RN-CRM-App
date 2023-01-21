@@ -7,10 +7,11 @@ import { SHOW_CREATED_CUSTOMER_ALERT }  from '../store/actions/showAlertAction.j
 const uuidv4 = require("uuid/v4")
 import { connect } from "react-redux";
 import * as Notifications from "expo-notifications";
+import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
 
 
 function AddEditCustomer(props) {
-    console.log(props.customers)
+    
     useEffect(() => {
       const listener = Notifications.addNotificationReceivedListener(handleNotification);
       return () => listener.remove();
@@ -24,6 +25,19 @@ function AddEditCustomer(props) {
     const [status, setStatus] = useState(null);
     const [region, setRegion] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
+
+    if (props.currentCustomer) {
+      firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null
+      lastName != props.currentCustomer.lastName ? setLastName(props.currentCustomer.lastName) : null
+      status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
+      region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
+      setTimeout(() => {
+        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: customer}})
+
+      }, 1000)
+
+
+    }
 
     //drop down options
     const listOfRegions = [
@@ -158,7 +172,8 @@ const askNotification = async () => {
 
   export default connect((state) => ({
     customers: state.customerReducer.customers,
-    asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle
+    asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle,
+    currentCustomer: state.currentCustomerReducer.currentCustomer
   }), null)(AddEditCustomer);
 
   const styles = StyleSheet.create({
