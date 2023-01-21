@@ -10,28 +10,19 @@ import * as Notifications from "expo-notifications";
 
 
 function AddEditCustomer(props) {
+    console.log(props.customers)
     useEffect(() => {
       const listener = Notifications.addNotificationReceivedListener(handleNotification);
       return () => listener.remove();
     }, []);
 
-
-    let editCustomer = false;
-    let action = ADD_CUSTOMER;
-    let customer = null;
-    if (props?.route?.params?.customerId != undefined) {
-      editCustomer = true;
-      action = UPDATE_CUSTOMER;
-      customer = props.customers.filter((customer) => {
-        return customer.id = props.route.params.customerId;
-      })[0]
-    }
-
+    var action = ADD_CUSTOMER;
+    var customer = null;
     //state vars
-    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName : "First");
-    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last");
-    const [status, setStatus] = useState(editCustomer ? customer.status : null);
-    const [region, setRegion] = useState(editCustomer ? customer.region : null);
+    const [firstName, setFirstName] = useState("First");
+    const [lastName, setLastName] = useState("Last");
+    const [status, setStatus] = useState(null);
+    const [region, setRegion] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
     //drop down options
@@ -90,7 +81,7 @@ function AddEditCustomer(props) {
               />
           </View>
           <View style={styles.fleItemStyle}>
-            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customer?.id, action); resetForm(setFirstName, setLastName, setStatus, setRegion)}}>
+            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customer?.id, action); }}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
 
@@ -98,6 +89,7 @@ function AddEditCustomer(props) {
       </View>
     );
   }
+  //resetForm(setFirstName, setLastName, setStatus, setRegion)
 
   async function addCustomer(props, firstName, lastName, status, region, id, action) {
     let customerId = (action == UPDATE_CUSTOMER ? id : uuidv4())
