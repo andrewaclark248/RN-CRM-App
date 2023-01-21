@@ -2,7 +2,7 @@ import { View, Text, Button } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
-import { UPDATE_REGION } from '../redux/actions/updateRegion'
+import { UPDATE_REGION } from '../store/actions/updateRegion'
 import { connect } from "react-redux";
 
 function SelectRegion(props) {
