@@ -17,6 +17,8 @@ function AddEditCustomer(props) {
       return () => listener.remove();
     }, []);
 
+
+
     var action = ADD_CUSTOMER;
     var customer = null;
     //state vars
@@ -32,12 +34,14 @@ function AddEditCustomer(props) {
       status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
       region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
       setTimeout(() => {
-        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: customer}})
-
+        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: null}})
       }, 1000)
-
-
     }
+
+    props.navigation.addListener('blur',() => {
+      console.log('Screen blurred')
+      resetForm(setFirstName, setLastName, setStatus, setRegion)
+    })
 
     //drop down options
     const listOfRegions = [
