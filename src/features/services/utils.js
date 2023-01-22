@@ -3,6 +3,7 @@ import { Keyboard } from 'react-native';
 import * as Notifications from "expo-notifications";
 import { STORE_CUSTOMER } from './index.js'
 import { ASYNC_LOAD_CUSTOMERS, UPDATE_CUSTOMER } from './../../store/actions/addCustomer.js'
+import { CURRENT_CUSTOMER } from './../../store/actions/currentCustomer'
 
 
 export async function loadAsyncStorageData(props) {
@@ -64,7 +65,7 @@ export function resetForm(setFirstName, setLastName, setStatus, setRegion, setCu
 }
 
 
-function loadCurrentCustomer(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
+export function loadCurrentCustomer(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
     if (props.currentCustomer) {
       action = UPDATE_CUSTOMER;
       firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null

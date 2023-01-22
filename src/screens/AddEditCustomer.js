@@ -11,7 +11,7 @@ import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
 import { storeData, getData } from './../features/services/AsyncData.js'
 import { STORE_CUSTOMER } from './../features/services/index.js'
 
-import { handleReminder, resetForm, handleNotification } from './../features/services/utils.js'
+import { handleReminder, resetForm, handleNotification, loadCurrentCustomer } from './../features/services/utils.js'
 
 
 function AddEditCustomer(props) {
@@ -33,6 +33,7 @@ function AddEditCustomer(props) {
     const [customerId, setCustomerId] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
+                              //(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId)
     action = loadCurrentCustomer(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId)
 
     props.navigation.addListener('blur',() => {
@@ -129,6 +130,8 @@ function AddEditCustomer(props) {
     props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
 
     //store in aysnc storage
+    //await storeDataInAsyncStorage(customer)
+     
     var allCustomers = {}
     var result = await getData(STORE_CUSTOMER)
     result != undefined ? allCustomers = JSON.parse(result) : null
@@ -136,9 +139,21 @@ function AddEditCustomer(props) {
     allCustomers[customer.id] = customer
     //allCustomers = JSON.parse(reuslt)
     await storeData(STORE_CUSTOMER, JSON.stringify(allCustomers))
+    
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
     handleReminder()
+  }
+
+  async function storeDataInAsyncStorage(customer) {
+        //store in aysnc storage
+        var allCustomers = {}
+        var result = await getData(STORE_CUSTOMER)
+        result != undefined ? allCustomers = JSON.parse(result) : null
+    
+        allCustomers[customer.id] = customer
+        //allCustomers = JSON.parse(reuslt)
+        await storeData(STORE_CUSTOMER, JSON.stringify(allCustomers))
   }
 
 
