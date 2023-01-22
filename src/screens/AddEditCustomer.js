@@ -26,21 +26,23 @@ function AddEditCustomer(props) {
     const [lastName, setLastName] = useState("Last");
     const [status, setStatus] = useState(null);
     const [region, setRegion] = useState(null);
+    const [customerId, setCustomerId] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
     if (props.currentCustomer) {
+      action = UPDATE_CUSTOMER;
       firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null
       lastName != props.currentCustomer.lastName ? setLastName(props.currentCustomer.lastName) : null
       status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
       region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
+      customerId != props.currentCustomer.id ? setCustomerId(props.currentCustomer.id) : null
       setTimeout(() => {
         props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: null}})
       }, 1000)
     }
 
     props.navigation.addListener('blur',() => {
-      console.log('Screen blurred')
-      resetForm(setFirstName, setLastName, setStatus, setRegion)
+      resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId)
     })
 
     //drop down options
@@ -99,7 +101,7 @@ function AddEditCustomer(props) {
               />
           </View>
           <View style={styles.fleItemStyle}>
-            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customer?.id, action); }}>
+            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customerId, action); }}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
 
@@ -110,7 +112,15 @@ function AddEditCustomer(props) {
   //resetForm(setFirstName, setLastName, setStatus, setRegion)
 
   async function addCustomer(props, firstName, lastName, status, region, id, action) {
-    let customerId = (action == UPDATE_CUSTOMER ? id : uuidv4())
+    var action = ADD_CUSTOMER;
+    var customerId = null
+    if (id == undefined) {
+      customerId = uuidv4();
+    } else {
+      customerId = id; 
+      action = UPDATE_CUSTOMER;
+    }
+
     let customer = {
         id: customerId,
         firstName: firstName,
@@ -130,12 +140,12 @@ function AddEditCustomer(props) {
     handleReminder()
   }
 
-  function resetForm(setFirstName, setLastName, setStatus, setRegion) {
+  function resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
     setFirstName("First")
     setLastName("Last")
     setStatus(null)
     setRegion(null)
-
+    setCustomerId(null)
   }
 
   const handleReminder = () => {
