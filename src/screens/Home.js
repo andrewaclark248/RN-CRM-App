@@ -3,6 +3,12 @@ import { connect } from "react-redux";
 import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from '../store/actions/toggleAsyncStorage'
 import { SHOW_CREATED_CUSTOMER_ALERT }  from '../store/actions/showAlertAction.js'
 
+import { getData } from './../features/services/AsyncData.js'
+import { STORE_CUSTOMER } from './../features/services/index.js'
+
+import { ASYNC_LOAD_CUSTOMERS } from './../store/actions/addCustomer.js'
+
+import { useEffect } from 'react';
 
 function Home(props) {
   var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
@@ -23,6 +29,16 @@ function Home(props) {
 
 
   }
+
+  useEffect(() => {
+    if (props.asyncStorageToggle) {
+      console.log("load async storage")
+      loadAsyncStorageData(props)
+    }
+  },[props.asyncStorageToggle])
+
+
+
 
   return (
       <View style={styles.flexStyle}>
@@ -48,11 +64,30 @@ function Home(props) {
   
   export default connect((state) => ({
     asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle,
-    showCreatedCustomerAlert: state.showAlertReducer.showCreatedCustomerAlert
+    showCreatedCustomerAlert: state.showAlertReducer.showCreatedCustomerAlert,
+    customers: state.customerReducer.customers
   }), null)(Home);
 
-  //asyncStorageReducer
-  //asyncStorageToggle
+
+  async function getSomeStuff() {
+    var result = await getData(STORE_CUSTOMER)
+    console.log(result)
+  }
+  
+  async function loadAsyncStorageData(props) {
+    var result = await getData(STORE_CUSTOMER)
+    var customers = JSON.parse(result)
+    var allCustomers = [];
+    var convertedConsutomers = Object.keys(customers).map((key) => {
+      
+      allCustomers.push(customers[key])
+    })
+    console.log(allCustomers)
+
+    props.dispatch({type: ASYNC_LOAD_CUSTOMERS, payload: {asyncCustomers: allCustomers}})
+  
+  }
+  
   
   const styles = StyleSheet.create({
     textStyle: {

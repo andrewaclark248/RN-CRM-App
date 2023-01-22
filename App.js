@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import * as React from 'react';
+import { useEffect} from 'react';
 
 import Home from './src/screens/Home.js';
 import SelectRegion from './src/screens/SelectRegion';
@@ -16,8 +16,17 @@ import store from './src/store/store.js';
 import { getData } from './src/features/services/AsyncData.js'
 import { STORE_CUSTOMER } from './src/features/services/index.js'
 
-export default function App() {
-  getSomeStuff();
+import { connect } from "react-redux";
+
+
+export default function App(props) {
+  //getSomeStuff();
+  //useEffect(() => {
+  //  if (props.asyncStorageToggle) {
+  //    loadAsyncStorageData(props)
+  //  }
+  //}, [])
+
   return (
       <Provider store={store}>
         <NavigationContainer>
@@ -33,10 +42,6 @@ export default function App() {
   );
 }
 
-async function getSomeStuff() {
-  var result = await getData(STORE_CUSTOMER)
-  console.log(result)
-}
 
 const styles = StyleSheet.create({
   container: {

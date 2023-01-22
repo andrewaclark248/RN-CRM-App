@@ -8,7 +8,7 @@ function CustomerByRegion(props) {
     let customersInRegion = props.customers.filter((customer) => {
       return customer.region == props.region
     })
-
+    console.log(props.customers)
     return (
       <View style={styles.flexStyle}>
         <View style={styles.fleItemStyle}>
