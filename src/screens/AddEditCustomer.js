@@ -11,6 +11,9 @@ import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
 import { storeData, getData } from './../features/services/AsyncData.js'
 import { STORE_CUSTOMER } from './../features/services/index.js'
 
+import { handleReminder, resetForm, handleNotification } from './../features/services/utils.js'
+
+
 function AddEditCustomer(props) {
     
     useEffect(() => {
@@ -148,46 +151,7 @@ function AddEditCustomer(props) {
     handleReminder()
   }
 
-  function resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
-    setFirstName("First")
-    setLastName("Last")
-    setStatus(null)
-    setRegion(null)
-    setCustomerId(null)
-  }
 
-  const handleReminder = () => {
-    askNotification();
-    Keyboard.dismiss();
-    const schedulingOptions = {
-      content: {
-        title: `Reminder!`,
-        body: `Call customer new customer you just created`,
-        sound: true,
-        priority: Notifications.AndroidNotificationPriority.HIGH,
-        color: "blue",
-      },
-      trigger: {
-        seconds: 5,
-      },
-    };
-    // Notifications show only when app is not active.
-    // (ie. another app being used or device's screen is locked)
-    Notifications.scheduleNotificationAsync(schedulingOptions);
-  };
-
-// request permession to notify the user
-const askNotification = async () => {
-  // We need to ask for Notification permissions for ios devices
-  const { status } = await Notifications.requestPermissionsAsync();
-  if (status === "granted") {
-    console.log("Notification permissions granted.");
-  }
-};
-  
-  const handleNotification = () => {
-    console.warn("Your notification ran, but won`t show up in the app!");
-  };
 
 
 

@@ -10,6 +10,9 @@ import { ASYNC_LOAD_CUSTOMERS } from './../store/actions/addCustomer.js'
 
 import { useEffect } from 'react';
 
+import { loadAsyncStorageData } from './../features/services/utils.js'
+
+
 function Home(props) {
   var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
 
@@ -69,25 +72,8 @@ function Home(props) {
   }), null)(Home);
 
 
-  async function getSomeStuff() {
-    var result = await getData(STORE_CUSTOMER)
-    console.log(result)
-  }
   
-  async function loadAsyncStorageData(props) {
-    var result = await getData(STORE_CUSTOMER)
-    var customers = JSON.parse(result)
-    var allCustomers = [];
-    var convertedConsutomers = Object.keys(customers).map((key) => {
-      
-      allCustomers.push(customers[key])
-    })
-    console.log(allCustomers)
 
-    props.dispatch({type: ASYNC_LOAD_CUSTOMERS, payload: {asyncCustomers: allCustomers}})
-  
-  }
-  
   
   const styles = StyleSheet.create({
     textStyle: {
