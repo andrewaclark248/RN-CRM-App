@@ -23,10 +23,12 @@ function Home(props) {
 
 
   }
+
   return (
       <View style={styles.flexStyle}>
         <View style={styles.fleItemStyle}>
           <Text style={styles.textStyle}>Toggle Async Storage</Text>
+          <Text style={styles.textStyle}>Status: {props.asyncStorageToggle ? "On" : "Off"}</Text>
         </View>
         <View style={styles.fleItemStyle}>
           <Pressable style={styles.button} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>

@@ -13,7 +13,11 @@ const Tab = createBottomTabNavigator();
 import { Provider } from 'react-redux';
 import store from './src/store/store.js';
 
+import { getData } from './src/features/services/AsyncData.js'
+import { STORE_CUSTOMER } from './src/features/services/index.js'
+
 export default function App() {
+  getSomeStuff();
   return (
       <Provider store={store}>
         <NavigationContainer>
@@ -27,6 +31,11 @@ export default function App() {
       </Provider>
 
   );
+}
+
+async function getSomeStuff() {
+  var result = await getData(STORE_CUSTOMER)
+  console.log(result)
 }
 
 const styles = StyleSheet.create({
