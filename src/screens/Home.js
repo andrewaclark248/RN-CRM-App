@@ -13,6 +13,8 @@ import { useEffect } from 'react';
 import { loadAsyncStorageData } from './../features/services/utils.js'
 
 
+import Button from './../features/components/Button.js'
+
 function Home(props) {
   var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
 
@@ -50,9 +52,10 @@ function Home(props) {
           <Text style={styles.textStyle}>Status: {props.asyncStorageToggle ? "On" : "Off"}</Text>
         </View>
         <View style={styles.fleItemStyle}>
-          <Pressable style={styles.button} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
-              <Text style={styles.text}>{asyncToggle}</Text>
-          </Pressable>
+          <Button homePage={true} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
+            <Text style={styles.text}>{asyncToggle}</Text>
+
+          </Button>
         </View>
 
       </View>

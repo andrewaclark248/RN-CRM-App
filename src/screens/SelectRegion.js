@@ -1,9 +1,11 @@
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import React, { useState } from 'react';
 import { StyleSheet, Pressable } from 'react-native';
 import { UPDATE_REGION } from '../store/actions/updateRegion'
 import { connect } from "react-redux";
+import Button from './../features/components/Button.js'
+
 
 function SelectRegion(props) {
   const [value, setValue] = useState(null);
@@ -34,9 +36,9 @@ function SelectRegion(props) {
           />
         </View>
         <View style={styles.fleItemStyle}>
-          <Pressable style={styles.button} onPress={() => navigateToCustomerByRegion(props, value)}>
+          <Button selectRegion={true} onPress={() => navigateToCustomerByRegion(props, value)} >
             <Text style={styles.text}>See Customer In Region</Text>
-          </Pressable>
+          </Button>
         </View>
       </View>
     );
