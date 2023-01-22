@@ -33,17 +33,7 @@ function AddEditCustomer(props) {
     const [customerId, setCustomerId] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
-    if (props.currentCustomer) {
-      action = UPDATE_CUSTOMER;
-      firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null
-      lastName != props.currentCustomer.lastName ? setLastName(props.currentCustomer.lastName) : null
-      status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
-      region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
-      customerId != props.currentCustomer.id ? setCustomerId(props.currentCustomer.id) : null
-      setTimeout(() => {
-        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: null}})
-      }, 1000)
-    }
+    action = loadCurrentCustomer(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId)
 
     props.navigation.addListener('blur',() => {
       resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId)

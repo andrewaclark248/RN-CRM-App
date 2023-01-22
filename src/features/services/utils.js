@@ -2,7 +2,7 @@ import { getData } from './AsyncData.js'
 import { Keyboard } from 'react-native';
 import * as Notifications from "expo-notifications";
 import { STORE_CUSTOMER } from './index.js'
-import { ASYNC_LOAD_CUSTOMERS } from './../../store/actions/addCustomer.js'
+import { ASYNC_LOAD_CUSTOMERS, UPDATE_CUSTOMER } from './../../store/actions/addCustomer.js'
 
 
 export async function loadAsyncStorageData(props) {
@@ -62,3 +62,20 @@ export function resetForm(setFirstName, setLastName, setStatus, setRegion, setCu
     setRegion(null)
     setCustomerId(null)
 }
+
+
+function loadCurrentCustomer(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
+    if (props.currentCustomer) {
+      action = UPDATE_CUSTOMER;
+      firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null
+      lastName != props.currentCustomer.lastName ? setLastName(props.currentCustomer.lastName) : null
+      status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
+      region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
+      customerId != props.currentCustomer.id ? setCustomerId(props.currentCustomer.id) : null
+      setTimeout(() => {
+        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: null}})
+      }, 1000)
+    }
+
+    return action
+  }
