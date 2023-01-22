@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { connect } from "react-redux";
 import { DataTable } from 'react-native-paper';
 import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
+import Button from './../features/components/Button.js'
 
 
 function CustomerByRegion(props) {
