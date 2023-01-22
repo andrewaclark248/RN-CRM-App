@@ -122,3 +122,25 @@ export const updateRegion = (state = regionInitialState, action) => {
     }
     return returnVar;
 }
+
+
+
+//current customer 
+import { CURRENT_CUSTOMER } from './actions/currentCustomer.js'
+const currentCustomerInitialState = {
+	currentCustomer: null
+}
+
+export const currentCustomerReducer = (state = currentCustomerInitialState, action) => {
+
+    let returnVar = null;
+    if (action.type == CURRENT_CUSTOMER) {
+        returnVar = {
+            ...state,
+            currentCustomer: action.payload.customer
+        }
+    } else {
+        returnVar = state;
+    }
+    return returnVar;
+}

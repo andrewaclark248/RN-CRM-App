@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { connect } from "react-redux";
 import { DataTable } from 'react-native-paper';
+import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
 
 
 function CustomerByRegion(props) {
@@ -32,7 +33,7 @@ function CustomerByRegion(props) {
                     <DataTable.Cell>{ customer.status }</DataTable.Cell>
                     <DataTable.Cell>
                       <View>
-                      <Pressable style={styles.button} onPress={() => props.navigation.navigate("Add Customer", {customerId: customer.id})}>
+                      <Pressable style={styles.button} onPress={() => editCustomer(props, customer)}>
                           <Text style={styles.text}>Edit</Text>
                       </Pressable>
                       </View>
@@ -49,6 +50,11 @@ function CustomerByRegion(props) {
 
       </View>
     );
+  }
+  
+  function editCustomer(props, customer) {
+    props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: customer}})
+    props.navigation.navigate("Add Customer")
   }
   
 

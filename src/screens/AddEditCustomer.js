@@ -7,32 +7,43 @@ import { SHOW_CREATED_CUSTOMER_ALERT }  from '../store/actions/showAlertAction.j
 const uuidv4 = require("uuid/v4")
 import { connect } from "react-redux";
 import * as Notifications from "expo-notifications";
+import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
 
 
 function AddEditCustomer(props) {
+    
     useEffect(() => {
       const listener = Notifications.addNotificationReceivedListener(handleNotification);
       return () => listener.remove();
     }, []);
 
 
-    let editCustomer = false;
-    let action = ADD_CUSTOMER;
-    let customer = null;
-    if (props?.route?.params?.customerId != undefined) {
-      editCustomer = true;
+
+    var action = ADD_CUSTOMER;
+    var customer = null;
+    //state vars
+    const [firstName, setFirstName] = useState("First");
+    const [lastName, setLastName] = useState("Last");
+    const [status, setStatus] = useState(null);
+    const [region, setRegion] = useState(null);
+    const [customerId, setCustomerId] = useState(null);
+    const [isFocus, setIsFocus] = useState(false);
+
+    if (props.currentCustomer) {
       action = UPDATE_CUSTOMER;
-      customer = props.customers.filter((customer) => {
-        return customer.id = props.route.params.customerId;
-      })[0]
+      firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null
+      lastName != props.currentCustomer.lastName ? setLastName(props.currentCustomer.lastName) : null
+      status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
+      region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
+      customerId != props.currentCustomer.id ? setCustomerId(props.currentCustomer.id) : null
+      setTimeout(() => {
+        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: null}})
+      }, 1000)
     }
 
-    //state vars
-    const [firstName, setFirstName] = useState(editCustomer ? customer.firstName : "First");
-    const [lastName, setLastName] = useState(editCustomer ? customer.lastName :"Last");
-    const [status, setStatus] = useState(editCustomer ? customer.status : null);
-    const [region, setRegion] = useState(editCustomer ? customer.region : null);
-    const [isFocus, setIsFocus] = useState(false);
+    props.navigation.addListener('blur',() => {
+      resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId)
+    })
 
     //drop down options
     const listOfRegions = [
@@ -90,7 +101,7 @@ function AddEditCustomer(props) {
               />
           </View>
           <View style={styles.fleItemStyle}>
-            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customer?.id, action); resetForm(setFirstName, setLastName, setStatus, setRegion)}}>
+            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customerId, action); }}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
 
@@ -98,9 +109,18 @@ function AddEditCustomer(props) {
       </View>
     );
   }
+  //resetForm(setFirstName, setLastName, setStatus, setRegion)
 
   async function addCustomer(props, firstName, lastName, status, region, id, action) {
-    let customerId = (action == UPDATE_CUSTOMER ? id : uuidv4())
+    var action = ADD_CUSTOMER;
+    var customerId = null
+    if (id == undefined) {
+      customerId = uuidv4();
+    } else {
+      customerId = id; 
+      action = UPDATE_CUSTOMER;
+    }
+
     let customer = {
         id: customerId,
         firstName: firstName,
@@ -120,12 +140,12 @@ function AddEditCustomer(props) {
     handleReminder()
   }
 
-  function resetForm(setFirstName, setLastName, setStatus, setRegion) {
+  function resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
     setFirstName("First")
     setLastName("Last")
     setStatus(null)
     setRegion(null)
-
+    setCustomerId(null)
   }
 
   const handleReminder = () => {
@@ -166,7 +186,8 @@ const askNotification = async () => {
 
   export default connect((state) => ({
     customers: state.customerReducer.customers,
-    asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle
+    asyncStorageToggle: state.asyncStorageReducer.asyncStorageToggle,
+    currentCustomer: state.currentCustomerReducer.currentCustomer
   }), null)(AddEditCustomer);
 
   const styles = StyleSheet.create({
