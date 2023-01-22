@@ -1,4 +1,4 @@
-import { getData } from './AsyncData.js'
+import { getData, storeData } from './AsyncData.js'
 import { Keyboard } from 'react-native';
 import * as Notifications from "expo-notifications";
 import { STORE_CUSTOMER } from './index.js'
@@ -80,3 +80,16 @@ export function loadCurrentCustomer(firstName, lastName, status, region, custome
 
     return action
   }
+
+
+  export async function storeDataInAsyncStorage(customer) {
+    //store in aysnc storage
+    var allCustomers = {}
+    var result = await getData(STORE_CUSTOMER)
+    result != undefined ? allCustomers = JSON.parse(result) : null
+
+    allCustomers[customer.id] = customer
+    //allCustomers = JSON.parse(reuslt)
+    await storeData(STORE_CUSTOMER, JSON.stringify(allCustomers))
+}
+
