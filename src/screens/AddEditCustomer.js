@@ -8,7 +8,8 @@ const uuidv4 = require("uuid/v4")
 import { connect } from "react-redux";
 import * as Notifications from "expo-notifications";
 import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
-
+import { storeData, getData } from './../features/services/AsyncData.js'
+import { STORE_CUSTOMER } from './../features/services/index.js'
 
 function AddEditCustomer(props) {
     
@@ -133,8 +134,15 @@ function AddEditCustomer(props) {
     
     //show alert
     props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
-    
-    //await storeData(STORE_CUSTOMER, customer)
+
+    //store in aysnc storage
+    var allCustomers = {}
+    var result = await getData(STORE_CUSTOMER)
+    result != undefined ? allCustomers = JSON.parse(result) : null
+
+    allCustomers[customer.id] = customer
+    //allCustomers = JSON.parse(reuslt)
+    await storeData(STORE_CUSTOMER, JSON.stringify(allCustomers))
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
     handleReminder()
