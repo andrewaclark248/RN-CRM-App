@@ -11,6 +11,9 @@ import { CURRENT_CUSTOMER } from './../store/actions/currentCustomer.js'
 import { storeData, getData } from './../features/services/AsyncData.js'
 import { STORE_CUSTOMER } from './../features/services/index.js'
 
+import { handleReminder, resetForm, handleNotification, loadCurrentCustomer, storeDataInAsyncStorage } from './../features/services/utils.js'
+
+
 function AddEditCustomer(props) {
     
     useEffect(() => {
@@ -30,17 +33,7 @@ function AddEditCustomer(props) {
     const [customerId, setCustomerId] = useState(null);
     const [isFocus, setIsFocus] = useState(false);
 
-    if (props.currentCustomer) {
-      action = UPDATE_CUSTOMER;
-      firstName != props.currentCustomer.firstName ? setFirstName(props.currentCustomer.firstName) : null
-      lastName != props.currentCustomer.lastName ? setLastName(props.currentCustomer.lastName) : null
-      status != props.currentCustomer.status ? setStatus(props.currentCustomer.status) : null
-      region != props.currentCustomer.region ? setRegion(props.currentCustomer.region) : null
-      customerId != props.currentCustomer.id ? setCustomerId(props.currentCustomer.id) : null
-      setTimeout(() => {
-        props.dispatch({type: CURRENT_CUSTOMER, payload: {customer: null}})
-      }, 1000)
-    }
+    action = loadCurrentCustomer(firstName, lastName, status, region, customerId, props, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId)
 
     props.navigation.addListener('blur',() => {
       resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId)
@@ -136,6 +129,8 @@ function AddEditCustomer(props) {
     props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
 
     //store in aysnc storage
+    await storeDataInAsyncStorage(customer)
+     
     var allCustomers = {}
     var result = await getData(STORE_CUSTOMER)
     result != undefined ? allCustomers = JSON.parse(result) : null
@@ -143,51 +138,13 @@ function AddEditCustomer(props) {
     allCustomers[customer.id] = customer
     //allCustomers = JSON.parse(reuslt)
     await storeData(STORE_CUSTOMER, JSON.stringify(allCustomers))
+    
     props.navigation.navigate('Home', {showCreateCustomerAlert: true})
 
     handleReminder()
   }
 
-  function resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
-    setFirstName("First")
-    setLastName("Last")
-    setStatus(null)
-    setRegion(null)
-    setCustomerId(null)
-  }
 
-  const handleReminder = () => {
-    askNotification();
-    Keyboard.dismiss();
-    const schedulingOptions = {
-      content: {
-        title: `Reminder!`,
-        body: `Call customer new customer you just created`,
-        sound: true,
-        priority: Notifications.AndroidNotificationPriority.HIGH,
-        color: "blue",
-      },
-      trigger: {
-        seconds: 5,
-      },
-    };
-    // Notifications show only when app is not active.
-    // (ie. another app being used or device's screen is locked)
-    Notifications.scheduleNotificationAsync(schedulingOptions);
-  };
-
-// request permession to notify the user
-const askNotification = async () => {
-  // We need to ask for Notification permissions for ios devices
-  const { status } = await Notifications.requestPermissionsAsync();
-  if (status === "granted") {
-    console.log("Notification permissions granted.");
-  }
-};
-  
-  const handleNotification = () => {
-    console.warn("Your notification ran, but won`t show up in the app!");
-  };
 
 
 
