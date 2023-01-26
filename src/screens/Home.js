@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { OFF_ASYNC_STORAGE, ON_ASYNC_STORAGE }  from '../store/actions/toggleAsyncStorage'
 import { SHOW_CREATED_CUSTOMER_ALERT }  from '../store/actions/showAlertAction.js'
 
-import { getData } from './../features/services/AsyncData.js'
+import { getData, clearAll } from './../features/services/AsyncData.js'
 import { STORE_CUSTOMER } from './../features/services/index.js'
 
 import { ASYNC_LOAD_CUSTOMERS } from './../store/actions/addCustomer.js'
@@ -16,31 +16,9 @@ import { loadAsyncStorageData } from './../features/services/utils.js'
 import Button from './../features/components/Button.js'
 
 function Home(props) {
-  var asyncToggle = props.asyncStorageToggle ? "Turn OFF" : "Turn ON"
-
-  if (props?.showCreatedCustomerAlert) {
-    Alert.alert(
-      "Customer Created",
-      "A Customer Was Created.",
-      [
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-
-    setTimeout(() => {
-      //show alert
-      props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
-    }, "1000")
-
-
-  }
-
   useEffect(() => {
-    if (props.asyncStorageToggle) {
-      console.log("load async storage")
-      loadAsyncStorageData(props)
-    }
-  },[props.asyncStorageToggle])
+    loadAsyncStorageData(props)
+  },[])
 
 
 
@@ -48,12 +26,11 @@ function Home(props) {
   return (
       <View style={styles.flexStyle}>
         <View style={styles.fleItemStyle}>
-          <Text style={styles.textStyle}>Toggle Async Storage</Text>
-          <Text style={styles.textStyle}>Status: {props.asyncStorageToggle ? "On" : "Off"}</Text>
+          <Text style={styles.textStyle}>Clear Async Storage</Text>
         </View>
         <View style={styles.fleItemStyle}>
-          <Button homePage={true} onPress={() => {updateAsyncReduxState(props, props.asyncStorageToggle)}}>
-            <Text style={styles.text}>{asyncToggle}</Text>
+          <Button homePage={true} onPress={() => {clearAsyncStorage()}}>
+            <Text style={styles.text}>Clear Async Storage</Text>
 
           </Button>
         </View>
@@ -63,9 +40,10 @@ function Home(props) {
   }
  
 
-  function updateAsyncReduxState(props, asyncStorageToggle) {
-    let action = asyncStorageToggle ? OFF_ASYNC_STORAGE : ON_ASYNC_STORAGE
-    props.dispatch({type: action})
+  async function clearAsyncStorage() {
+    await clearAll()
+    console.log("Went here")
+
   }
   
   export default connect((state) => ({
