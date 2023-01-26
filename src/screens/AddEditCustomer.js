@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Keyboard } from 'react-native';
+import { View, Text, Pressable, Keyboard, Alert } from 'react-native';
 import { SafeAreaView, StyleSheet, TextInput } from "react-native";
 import { useState, useEffect } from 'react'
 import { Dropdown } from 'react-native-element-dropdown';
@@ -95,7 +95,7 @@ function AddEditCustomer(props) {
               />
           </View>
           <View style={styles.fleItemStyle}>
-            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customerId, action); }}>
+            <Pressable style={styles.button} onPress={() => {addCustomer(props, firstName, lastName, status, region, customerId, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId); }}>
                 <Text style={styles.text}>Add Customer</Text>
             </Pressable>
 
@@ -105,7 +105,7 @@ function AddEditCustomer(props) {
   }
   //resetForm(setFirstName, setLastName, setStatus, setRegion)
 
-  async function addCustomer(props, firstName, lastName, status, region, id, action) {
+  async function addCustomer(props, firstName, lastName, status, region, id, action, setFirstName, setLastName, setStatus, setRegion, setCustomerId) {
     var action = ADD_CUSTOMER;
     var customerId = null
     if (id == undefined) {
@@ -139,9 +139,21 @@ function AddEditCustomer(props) {
     //allCustomers = JSON.parse(reuslt)
     await storeData(STORE_CUSTOMER, JSON.stringify(allCustomers))
     
-    props.navigation.navigate('Home', {showCreateCustomerAlert: true})
+    //props.navigation.navigate('Home', {showCreateCustomerAlert: true})
+    resetForm(setFirstName, setLastName, setStatus, setRegion, setCustomerId)
 
+    showCreatedCustomerAlert()
     handleReminder()
+  }
+
+  function showCreatedCustomerAlert() {
+    Alert.alert(
+      "Customer Created",
+      "A Customer Was Created.",
+      [
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
   }
 
 
