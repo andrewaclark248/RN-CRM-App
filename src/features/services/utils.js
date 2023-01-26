@@ -8,6 +8,9 @@ import { CURRENT_CUSTOMER } from './../../store/actions/currentCustomer'
 
 export async function loadAsyncStorageData(props) {
     var result = await getData(STORE_CUSTOMER)
+    if(result == undefined) {
+      return;
+    }
     var customers = JSON.parse(result)
     var allCustomers = [];
     var convertedConsutomers = Object.keys(customers).map((key) => {

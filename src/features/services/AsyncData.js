@@ -20,3 +20,11 @@ export const getData = async (key) => {
       // Error retrieving data
     }
 };
+
+export const clearAll = async () => {
+  try {
+    await AsyncStorage.clear()
+  } catch(e) {
+    // clear error
+  }
+}
