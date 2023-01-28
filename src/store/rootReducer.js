@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { updateRegion, addCustomer, showAlertReducer, asyncStorageReducer, currentCustomerReducer } from './reducers.js'
 
-const rootReducer = combineReducers({
+const reducer = combineReducers({
 	regionReducer: updateRegion,
 	customerReducer: addCustomer,
 	asyncStorageReducer: asyncStorageReducer,
@@ -9,4 +9,4 @@ const rootReducer = combineReducers({
 	currentCustomerReducer: currentCustomerReducer
 })
 
-export default rootReducer;
+export default reducer;
