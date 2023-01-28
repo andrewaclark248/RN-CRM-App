@@ -17,7 +17,7 @@ export async function loadAsyncStorageData(props) {
       
       allCustomers.push(customers[key])
     })
-    console.log(allCustomers)
+    //console.log(allCustomers)
 
     props.dispatch({type: ASYNC_LOAD_CUSTOMERS, payload: {asyncCustomers: allCustomers}})
   

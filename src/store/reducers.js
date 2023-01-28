@@ -61,6 +61,7 @@ export const addCustomer = (state = addCustomerInitialState, action) => {
 
     let returnVar = null;
     if (action.type == ADD_CUSTOMER) {
+        console.log("add customer reducer - done")
         var customers = state.customers.concat(action.payload.customer)
         
         if (action?.payload?.saveToAsyncStorage) {
