@@ -6,7 +6,7 @@ import { SHOW_CREATED_CUSTOMER_ALERT }  from '../store/actions/showAlertAction.j
 import { getData, clearAll } from './../features/services/AsyncData.js'
 import { STORE_CUSTOMER } from './../features/services/index.js'
 
-import { ASYNC_LOAD_CUSTOMERS } from './../store/actions/addCustomer.js'
+import { ASYNC_LOAD_CUSTOMERS, CLEAR_CUSTOMERS } from './../store/actions/addCustomer.js'
 
 import { useEffect } from 'react';
 
@@ -29,7 +29,7 @@ function Home(props) {
           <Text style={styles.textStyle}>Clear Async Storage</Text>
         </View>
         <View style={styles.fleItemStyle}>
-          <Button homePage={true} onPress={() => {clearAsyncStorage()}}>
+          <Button homePage={true} onPress={() => {clearAsyncStorage(props)}}>
             <Text style={styles.text}>Clear Async Storage</Text>
 
           </Button>
@@ -40,10 +40,9 @@ function Home(props) {
   }
  
 
-  async function clearAsyncStorage() {
-      await clearAll()
-    console.log("Went here")
-
+  async function clearAsyncStorage(props) {
+    await clearAll()
+    props.dispatch({type: CLEAR_CUSTOMERS})
   }
   
   export default connect((state) => ({
