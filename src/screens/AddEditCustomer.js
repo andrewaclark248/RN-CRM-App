@@ -129,7 +129,7 @@ function AddEditCustomer(props) {
     props.dispatch({type: SHOW_CREATED_CUSTOMER_ALERT })
 
     //store in aysnc storage
-    await storeDataInAsyncStorage(customer)
+    //await storeDataInAsyncStorage(customer)
      
     var allCustomers = {}
     var result = await getData(STORE_CUSTOMER)
