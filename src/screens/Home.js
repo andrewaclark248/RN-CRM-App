@@ -41,7 +41,7 @@ function Home(props) {
  
 
   async function clearAsyncStorage(props) {
-    await clearAll()
+      await clearAll()
     props.dispatch({type: CLEAR_CUSTOMERS})
   }
   
