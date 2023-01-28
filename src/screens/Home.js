@@ -41,7 +41,7 @@ function Home(props) {
  
 
   async function clearAsyncStorage() {
-    await clearAll()
+      await clearAll()
     console.log("Went here")
 
   }
