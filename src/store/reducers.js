@@ -52,7 +52,7 @@ export const asyncStorageReducer = (state = asyncStorgaeInitialState, action) =>
 
 
 //add customer reducer
-import { ADD_CUSTOMER, UPDATE_CUSTOMER, ASYNC_LOAD_CUSTOMERS } from './actions/addCustomer' //redux action
+import { ADD_CUSTOMER, UPDATE_CUSTOMER, ASYNC_LOAD_CUSTOMERS, CLEAR_CUSTOMERS } from './actions/addCustomer' //redux action
 const addCustomerInitialState = {
 	customers: []
 }
@@ -100,6 +100,11 @@ export const addCustomer = (state = addCustomerInitialState, action) => {
         returnVar = {
             ...state,
             customers: action.payload.asyncCustomers
+        }
+    } else if (action.type == CLEAR_CUSTOMERS) {
+        returnVar = {
+            ...state,
+            customers: []
         }
     } else {
         returnVar = state;
